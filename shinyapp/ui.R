@@ -11,6 +11,6 @@ my_ui <- fluidPage(
   
   mainPanel(
     h1("Bar Plot", align = "center"),
-    plotlyOutput("state_plot")
+    plotOutput("barplot")
   )
 )
