@@ -7,9 +7,10 @@ data <- data %>% filter(state == "Maharashtra" | state == "Delhi" | state == "Ta
 
 my_server <- function(input, output) {
   
-  # Output a bar chart
+  # Output a bar chart for state information
   output$barplot <- renderPlotly({
     plot_ly(data, x=data$state, y=data$male, type='bar', name = 'male patients', 
+            text = paste0(data$state, " has ", data$patients, " patients diagnosed COVID-19."),
             color = I("light blue")) %>% 
       add_trace(y = data$female, name = 'female patients', color = I("pink")) %>% 
       add_trace(y = (data$patients - data$female - data$male), name ='Unknown gender', 
@@ -19,6 +20,8 @@ my_server <- function(input, output) {
                yaxis = list(title = "Number of patients"),
                barmode = "stack")
   })
+  
+  
   
   
 }
