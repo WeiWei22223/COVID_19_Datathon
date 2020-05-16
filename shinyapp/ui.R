@@ -7,7 +7,7 @@ library(plotly)
 bar_plot_states <- tabPanel(
   "Bar Plot for States",
   h1("Bar Plot", align = "center"),
-  plotOutput("barplot")
+  plotlyOutput("barplot")
 )
 
 my_ui <- fluidPage(

@@ -7,9 +7,11 @@ data <- data %>% filter(state == "Maharashtra" | state == "Delhi" | state == "Ta
 
 my_server <- function(input, output) {
   
-  # Output a bar chart with number of employees in different gender
-  output$barplot <- renderPlot({
-    p <- ggplot(data, aes(x=data$state, y=data$patients)) + geom_bar(stat="identity")
-    p
+  # Output a bar chart
+  output$barplot <- renderPlotly({
+    plot_ly(data, x=data$state, y=data$patients, type='bar', color = I("black")) %>% 
+      layout(title = "Total Amount of patients that test postive in COVID-19 in India", 
+               xaxis = list(title = "States in India"),
+               yaxis = list(title = "Number of patients"))
   })
 }
