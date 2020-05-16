@@ -1,10 +1,16 @@
 library(shiny)
+library(shinythemes)
+library(plotly)
 
-shinyUI(pageWithSidebar(
+my_ui <- fluidPage(
+  theme = shinythemes::shinytheme("readable"),
 
   headerPanel("Data Visulization"),
   
   sidebarPanel(),
   
-  mainPanel()
-))
+  mainPanel(
+    h1("Bar Plot", align = "center"),
+    plotlyOutput("state_plot")
+  )
+)
