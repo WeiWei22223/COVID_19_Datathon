@@ -6,8 +6,10 @@ library(plotly)
 
 bar_plot_states <- tabPanel(
   "Bar Plot for States",
-  h1("Bar Plot", align = "center"),
+  h1("Overall count of diagnosed patients of COVID-19 in 4 states' of India", align = "center"),
+  p("The plot below shows the number of diagnosed patients by states and gender."),
   plotlyOutput("barplot")
+  
 )
 
 my_ui <- fluidPage(
