@@ -52,6 +52,10 @@ my_server <- function(input, output) {
     trace_graph <- trace_graph %>% add_trace(y = Chennai$active, name = "Chennai")
     trace_graph <- trace_graph %>% add_trace(y = ahm_active)
     trace_graph <- trace_graph %>% add_trace(y = agg_active, name = "Delhi")
+    trace_graph <- trace_graph %>% layout(title = "Active Cases vs Date (2020-04-21 to 2020-05-16)", 
+                                          xaxis = list(title = "Active Cases"),
+                                          yaxis = list(title = "Date"))
+    
   })
   
   
