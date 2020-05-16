@@ -1,0 +1,34 @@
+"state","state_code","patients","female","male"
+"Kerala","KL",574,54,125
+"Karnataka","KA",1009,287,516
+"Bihar","BR",683,194,394
+"Chandigarh","CH",160,54,66
+"Rajasthan","RJ",2597,15,26
+"Tamil Nadu","TN",6706,1419,3150
+"Gujarat","GJ",3893,920,1646
+"Jammu and Kashmir","JK",673,4,10
+"West Bengal","WB",762,11,12
+"Andhra Pradesh","AP",1780,110,307
+"Uttar Pradesh","UP",2418,26,36
+"Odisha","OR",373,42,220
+"Madhya Pradesh","MP",2406,8,17
+"Chhattisgarh","CT",58,6,9
+"Punjab","PB",503,23,28
+"Assam","AS",61,1,2
+"Telangana","TG",1075,9,28
+"Puducherry","PY",15,1,3
+"Goa","GA",7,0,6
+"Himachal Pradesh","HP",65,2,4
+"Maharashtra","MH",8707,31,52
+"Haryana","HR",423,11,5
+"Uttarakhand","UT",72,1,5
+"Delhi","DL",2955,9,37
+"Jharkhand","JH",121,4,2
+"Manipur","MN",2,1,0
+"Andaman and Nicobar Islands","AN",39,2,3
+"Tripura","TR",12,0,1
+"Ladakh","LA",26,1,5
+"Mizoram","MZ",2,0,2
+"Meghalaya","ML",16,0,1
+"Arunachal Pradesh","AR",1,0,0
+"Dadra and Nagar Haveli and Daman and Diu","DN",1,1,0
