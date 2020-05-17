@@ -89,6 +89,48 @@ avg_active_net = mean(agg_country_net_active[2:26]/agg_country_active[1:25])
 avg_recovered_net = mean(agg_country_net_recovered[2:26]/agg_country_recovered[1:25])
 avg_deceased_net = mean(agg_country_net_deceased[2:26]/agg_country_deceased[1:25])
 ##################
+################## cases for states and district across time ############
+agg_area <- function(area,target, s_or_d) {
+  area_list = levels(area)
+  num_area = length(area_list)
+  
+  mtx = data.frame(matrix(ncol = num_area, nrow = num_date_list))
+  row.names(mtx) = as.vector(levels(date_list))
+  colnames(mtx) = area_list
+  
+  for (k in 1:num_date_list) {
+    cur_day = districts_data %>% filter(date == date_list[k])
+    for (j in 1:num_area) {
+      temp_area = area_list[j]
+      if (s_or_d == 0) {
+        cur_area = cur_day %>% filter(State == temp_area)
+      } else {
+        cur_area = cur_day %>% filter(district == temp_area)
+      }
+      if (target == 1) {
+        mtx[k,j] = sum(cur_area$confirmed)
+      } else if (target == 2) {
+        mtx[k,j] = sum(cur_area$active)
+      } else if (target == 3) {
+        mtx[k,j] = sum(cur_area$recovered)
+      } else {
+        mtx[k,j] = sum(cur_area$deceased)
+      }
+    }
+  }
+  return(mtx)
+}
+
+states_mtx_confirmed = agg_area(districts_data$State, 1, 0)
+states_mtx_active = agg_area(districts_data$State, 2, 0)
+states_mtx_recovered = agg_area(districts_data$State, 3, 0)
+states_mtx_deceased = agg_area(districts_data$State, 4, 0)
+
+district_mtx_confirmed = agg_area(districts_data$district, 1, 1)
+district_mtx_active = agg_area(districts_data$district, 2, 1)
+district_mtx_recovered = agg_area(districts_data$district, 3, 1)
+district_mtx_deceased = agg_area(districts_data$district, 4, 1)
+##################
 
 my_server <- function(input, output) {
   
