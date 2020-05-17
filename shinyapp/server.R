@@ -168,10 +168,24 @@ my_server <- function(input, output) {
     trace_graph <- trace_graph %>% add_trace(y = Chennai$active, name = "Chennai")
     trace_graph <- trace_graph %>% add_trace(y = ahm_active)
     trace_graph <- trace_graph %>% add_trace(y = agg_active, name = "Delhi")
-    trace_graph <- trace_graph %>% layout(title = "Active Cases vs Date (2020-04-21 to 2020-05-16)", 
-                                          xaxis = list(title = "Active Cases"),
-                                          yaxis = list(title = "Date"))
+    trace_graph <- trace_graph %>% layout(title = "Active Cases vs Date", 
+                                          xaxis = list(title = "Date"),
+                                          yaxis = list(title = "Active Cases"),
+                                          legend = list(x = 0.05, y = 0.95, bgcolor = 'rgba(255,255,255,0.5)'),
+                                          margin = list(r = 60))
     
+  })
+  
+  output$tracestates <- renderPlotly({
+    trace_graph_states = plot_ly(x=levels(date_list), y=states_mtx_active$Maharashtra, type = 'scatter', mode = 'lines+markers', name = 'Maharashtra')
+    trace_graph_states <- trace_graph_states %>% add_trace(y = states_mtx_active$`Tamil Nadu`, name = "Tamil Nadu")
+    trace_graph_states <- trace_graph_states %>% add_trace(y = states_mtx_active$Gujarat, name = "Gujarat")
+    trace_graph_states <- trace_graph_states %>% add_trace(y = states_mtx_active$Delhi, name = "Delhi")
+    trace_graph_states <- trace_graph_states %>% layout(title = "Active Cases vs Date", 
+                                                        xaxis = list(title = "Date"),
+                                                        yaxis = list(title = "Active Cases"),
+                                                        legend = list(x = 0.05, y = 0.95, bgcolor = 'rgba(255,255,255,0.5)'),
+                                                        margin = list(r = 60))
   })
   
   output$aggtraceplot <- renderPlotly({
@@ -180,8 +194,8 @@ my_server <- function(input, output) {
     agg_trace_plt = agg_trace_plt %>% add_trace(y = agg_country_recovered, name = "Total recovered cases")
     agg_trace_plt = agg_trace_plt %>% add_trace(y = agg_country_deceased, name = "Total deceased cases")
     agg_trace_plt = agg_trace_plt %>% layout(title = "Cases vs Date (2020-04-21 to 2020-05-16) in India", 
-                                             xaxis = list(title = "Cases", showgrid = F),
-                                             yaxis = list(title = "Date"),
+                                             xaxis = list(title = "Date", showgrid = F),
+                                             yaxis = list(title = "Total"),
                                              legend = list(x = 0.05, y = 0.95, title=list(text='<b>Total Cases</b>'), bgcolor = 'rgba(255,255,255,0.5)'))
   })
   

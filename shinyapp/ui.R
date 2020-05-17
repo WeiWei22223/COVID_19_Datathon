@@ -16,8 +16,19 @@ bar_plot_states <- tabPanel(
 )
 
 trace_plot_districts <- tabPanel(
-  "Trace Plot for Districts",
-  plotlyOutput("tracedistricts")
+  "Trace Plot for States and Districts",
+  fluidRow(
+    splitLayout(cellWidths = c("50%","50%"),
+      h2("Trace Plot for selected Districts", align = "center"),
+      h2("Trace Plot for selected States", align = "center")
+    )
+  ),
+  fluidRow(
+    splitLayout(cellWidths = c("50%","50%"),
+      plotlyOutput("tracestates"),
+      plotlyOutput("tracedistricts")
+    )
+  )
 )
 
 growth_rate_country <- tabPanel(
@@ -39,9 +50,9 @@ my_ui <- fluidPage(
   #sidebarPanel(),
   navbarPage(
     "COVID-19 IN INDIA", 
+    growth_rate_country,
     bar_plot_states,
-    trace_plot_districts,
-    growth_rate_country
+    trace_plot_districts
     #diversity_map              
   )
 )
