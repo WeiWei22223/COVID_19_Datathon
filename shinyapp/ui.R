@@ -4,14 +4,17 @@ library(leaflet)
 library(plotly)
 
 bar_plot_states <- tabPanel(
-  "States Data",
-  h1("Overall count of diagnosed patients in India", align = "center"),
-  p("The plot below shows the number of diagnosed patients by states and gender."),
+  "Total Active Cases",
+  h1("Active cases in India at state and distrcit level", align = "center"),
+  p("The plot below shows the active cases by states."),
   # leafletOutput("state_map")
   fluidRow(
     splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("barplot"),
                 leafletOutput("state_map"))
-  )
+  ),
+  
+  p("The plot below shows the active cases by districts."),
+  plotlyOutput("district_bar")
 )
 
 trace_plot_districts <- tabPanel(
