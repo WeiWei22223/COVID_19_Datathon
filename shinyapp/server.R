@@ -160,6 +160,13 @@ labels <- sprintf("<strong>%s</strong><br/>count: %g",
 
 
 my_server <- function(input, output) {
+  # District filter by total active case
+  output$range <- renderPrint({ 
+    number <- nrow(total_active_district[total_active_district$patients >= input$total_count[1] & 
+                                           total_active_district$patients <= input$total_count[2], ])
+    paste0(number, " districts have total active case from ", input$total_count[1], " to ", 
+           input$total_count[2], ".")
+  })
   
   # Output a bar chart for state information
   output$barplot <- renderPlotly({
@@ -171,7 +178,8 @@ my_server <- function(input, output) {
             color = I("black")) %>%  
       layout(title = list(title = "Total active case in four states of India", color = '#ffffff'),
              xaxis = list(title = "States in India", color = '#ffffff'),
-             yaxis = list(title = "Number of patients", color = '#ffffff', gridcolor = '#f6eec9')) %>% 
+             yaxis = list(title = "Number of patients", color = '#ffffff', gridcolor = '#f6eec9'),
+             titlefont = list(color = "floralwhite")) %>% 
       layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
   
@@ -184,8 +192,7 @@ my_server <- function(input, output) {
             text = filtered_district$patients,
             textposition = 'auto',
             marker = list(color = '#f57b51',
-                          line = list(color = 'rgb(248,252,253)', width = 1.5)),
-            color = I("black")) %>%  
+                          line = list(color = 'rgb(248,252,253)', width = 1.5))) %>%  
       layout(title = list(title = "Total active cases in India at district level", color = '#ffffff'),
              xaxis = list(title = "District name", color = '#ffffff'),
              yaxis = list(title = "Number of patients", color = '#ffffff', gridcolor = '#f6eec9')) %>% 
