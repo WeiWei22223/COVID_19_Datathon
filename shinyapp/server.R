@@ -154,7 +154,7 @@ my_server <- function(input, output) {
     plot_ly(active_state_4, x=active_state_4$state, y=active_state_4$patients, type='bar', 
             text = active_state_4$patients,
             textposition = 'auto',
-            marker = list(color = 'rgb(158,225,225)',
+            marker = list(color = 'rgb((247,190,22))',
                           line = list(color = 'rgb(248,252,253)', width = 1.5)),
             color = I("black")) %>%  
       layout(title = "Total active case in four states of India", 

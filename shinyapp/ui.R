@@ -44,6 +44,7 @@ growth_rate_country <- tabPanel(
 
 my_ui <- fluidPage(
   theme = shinythemes::shinytheme("slate"),
+  includeCSS("www/style.css"),
   HTML('<center><h1>COVID-19 IN INDIA</h1></center>'),
   navbarPage(
     "COVID-19 IN INDIA", 
