@@ -15,7 +15,7 @@ From the start of the record(April 16th, 2020), all states and districts have ca
 The growth rate of the active cases are approximately 4.289%.  
 The growth rate of the recovered cases are approximately 14.215%.  
 The growth rate of the deceased cases are approximately 16.895%.  
-Take a closer look at the rates, we can see the growth rate of deceased cases are concerning. The high growth rate of the deceased cases may suggest that people are illed heavily and died before they are recognized as infected.
+Take a closer look at the rates, we can see the growth rate of deceased cases are concerning. The high growth rate of the deceased cases may suggest that people are heavily ill and even died before they are recognized as infected.
 
 #### How has the growth and the spread of the virus looked across the country since the first case?
 From the first line chart in the "Growth Rate across County" tag, we can see all types of cases are increasing. Specifically, the confirmed cases are rising with an increasingly fast rate, which is concerning.
