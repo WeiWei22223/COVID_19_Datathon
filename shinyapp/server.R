@@ -112,6 +112,17 @@ district_mtx_recovered = agg_area(districts_data$district, 3, 1)
 district_mtx_deceased = agg_area(districts_data$district, 4, 1)
 ##################
 
+# select total active cases at district level
+total_active_district <- district_mtx_active[nrow(district_mtx_active), ]
+total_active_district <- t(total_active_district)
+total_active_district <- data.frame(total_active_district)
+total_active_district <- tibble::rownames_to_column(total_active_district, "district")
+names(total_active_district)[1] <- "district"
+names(total_active_district)[2] <- "patients"
+
+# Filter district that <100 cases
+filtered_district <- total_active_district[total_active_district$patients < 100, ]
+
 # select total active cases at state level
 total_active_state <- states_mtx_active[nrow(states_mtx_active), ]
 total_active_state <- t(total_active_state)
@@ -162,6 +173,23 @@ my_server <- function(input, output) {
              yaxis = list(title = "Number of patients", color = '#ffffff', gridcolor = '#f6eec9')) %>% 
       layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
+  
+  # Output a bar chart for district information
+  output$district_bar <- renderPlotly({
+    plot_ly(total_active_district, 
+            x=total_active_district$district, 
+            y=total_active_district$patients, 
+            type='bar', 
+            text = total_active_district$patients,
+            textposition = 'auto',
+            marker = list(color = '#f57b51',
+                          line = list(color = 'rgb(248,252,253)', width = 1.5)),
+            color = I("black")) %>%  
+      layout(title = list(title = "Total active cases in India at district level", color = '#ffffff'),
+             xaxis = list(title = "District name", color = '#ffffff'),
+             yaxis = list(title = "Number of patients", color = '#ffffff', gridcolor = '#f6eec9')) %>% 
+      layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
+  }) 
   
   output$state_map <- renderLeaflet({
     leaflet(data = backup) %>%
