@@ -7,11 +7,11 @@ bar_plot_states <- tabPanel(
   "States Data",
   h1("Overall count of diagnosed patients in India", align = "center"),
   p("The plot below shows the number of diagnosed patients by states and gender."),
-  leafletOutput("state_map")
-  # fluidRow(
-  #   splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("barplot"), 
-  #               leafletOutput("state_map"))
-  # )
+  # leafletOutput("state_map")
+  fluidRow(
+    splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("barplot"),
+                leafletOutput("state_map"))
+  )
 )
 
 trace_plot_districts <- tabPanel(

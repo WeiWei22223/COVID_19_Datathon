@@ -151,16 +151,16 @@ my_server <- function(input, output) {
   
   # Output a bar chart for state information
   output$barplot <- renderPlotly({
-    plot_ly(data, x=data$state, y=data$male, type='bar', name = 'male patients', 
-            text = paste0(data$state, " has ", data$patients, " patients diagnosed COVID-19."),
-            color = I("light blue")) %>% 
-      add_trace(y = data$female, name = 'female patients', color = I("pink")) %>% 
-      add_trace(y = (data$patients - data$female - data$male), name ='Unknown gender', 
-                color = I("gray")) %>% 
-      layout(title = "Total Amount of patients that test postive in COVID-19 in India", 
+    plot_ly(active_state_4, x=active_state_4$state, y=active_state_4$patients, type='bar', 
+            text = active_state_4$patients,
+            textposition = 'auto',
+            marker = list(color = 'rgb(158,225,225)',
+                          line = list(color = 'rgb(248,252,253)', width = 1.5)),
+            color = I("black")) %>%  
+      layout(title = "Total active case in four states of India", 
                xaxis = list(title = "States in India"),
-               yaxis = list(title = "Number of patients"),
-               barmode = "stack")
+               yaxis = list(title = "Number of patients")) %>% 
+      layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
   
   output$state_map <- renderLeaflet({
