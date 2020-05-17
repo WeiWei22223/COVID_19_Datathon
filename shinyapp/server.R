@@ -164,8 +164,16 @@ my_server <- function(input, output) {
   output$range <- renderPrint({ 
     number <- nrow(total_active_district[total_active_district$patients >= input$total_count[1] & 
                                            total_active_district$patients <= input$total_count[2], ])
-    paste0(number, " districts have total active case from ", input$total_count[1], " to ", 
+    paste0(number, " districts have total active cases from ", input$total_count[1], " to ", 
            input$total_count[2], ".")
+  })
+  
+  # State filter by total active case
+  output$range2 <- renderPrint({ 
+    number <- nrow(total_active_state[total_active_state$patients >= input$total_count2[1] & 
+                                        total_active_state$patients <= input$total_count2[2], ])
+    paste0(number, " districts have total active cases from ", input$total_count2[1], " to ", 
+           input$total_count2[2], ".")
   })
   
   # Output a bar chart for state information
