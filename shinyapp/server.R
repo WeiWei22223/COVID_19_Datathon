@@ -9,7 +9,7 @@ library(geojsonsf)
 # all_data <- read.csv("data/aggregated_state_data.csv", stringsAsFactors = FALSE)
 # all_data <- all_data[order(all_data$state), ]
 
-############# Block for trace plot for districts #######
+############# Block for line chart for districts #######
 districts_data = read.csv("data/districts_daily_may_15.csv")
 Mumbai <- districts_data %>% filter(district == "Mumbai")
 Chennai <- districts_data %>% filter(district == "Chennai")
@@ -293,13 +293,12 @@ my_server <- function(input, output) {
   output$aggdeceasedplot <- renderPlotly({
     sub_agg_plt_deceased = plot_ly(x = levels(date_list), y = agg_country_deceased, type = 'scatter', mode = 'lines+markers', name = "Total deceased cases")
     sub_agg_plt_deceased = sub_agg_plt_deceased %>% add_trace(y = agg_country_net_deceased, name = "Net deceased cases", yaxis = "y2")
-    sub_agg_plt_deceased = sub_agg_plt_deceased %>% layout(title = list(title = "Total/Net Deceased Cases vs Date"), 
+    sub_agg_plt_deceased = sub_agg_plt_deceased %>% layout(title = list(title = "Total/Net Deceased Cases vs Date", font = list(color = "floralwhite")), 
                                                            xaxis = list(title = "Date", color = "floralwhite", tickfont = list(color = "floralwhite"), showgrid = F),
                                                            yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                            yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
                                                            legend = list(x = 0.15, y = 0.9, title=list(text='<b>Growth Rate: 16.8953%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
-                                                           margin = list(r = 60),
-                                                           titlefont = list(color = "floralwhite")) %>% 
+                                                           margin = list(r = 60)) %>% 
       layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
     
   })
