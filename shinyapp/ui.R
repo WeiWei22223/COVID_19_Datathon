@@ -6,13 +6,17 @@ library(plotly)
 bar_plot_states <- tabPanel(
   "Total Active Cases",
   h1("Active cases in India at state and distrcit level", align = "center"),
+  p("Slide range below to see the number of states in India that have total active cases within the range."),
+  sliderInput("total_count2", label = h3("Range of total active cases"), min = 0,
+              max = 21468, value = c(0, 100)),
+  verbatimTextOutput("range2"),
   p("The plot below shows the active cases by states."),
-  # leafletOutput("state_map")
-  fluidRow(
-    splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("barplot"),
-                leafletOutput("state_map"))
-  ),
-  
+  plotlyOutput("barplot"),
+  leafletOutput("state_map"),
+  p("Slide range below to see the number of districts in India that have total active cases within the range."),
+  sliderInput("total_count", label = h3("Range of total active cases"), min = 0,
+              max = 13891, value = c(0, 100)),
+  verbatimTextOutput("range"),
   p("The plot below shows the active cases by districts."),
   plotlyOutput("district_bar")
 )
