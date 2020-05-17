@@ -53,6 +53,7 @@ home_page <- tabPanel(
   "HOME",
   h1("COVID-19 IN INDIA", align = "center"),
   h4("Wei Fan, Qiaoxue Liu", align = "center"),
+  h5("(Please allow a few minutes for the plots and maps to fully load!)", align = "center"),
   h2("Background"),
   p("In December, 2019, “coronavirus disease 2019” (abbreviated “COVID-19”) are detected from people working at Wuhan South China Seafood Wholesale Market. 
     Later, a growing number of patients reported they were not exposed to animal markets, indicating person-to-person spread. 
@@ -72,8 +73,7 @@ home_page <- tabPanel(
        </ul>"),
   
   h2("Data Source"),
-  HTML("<p>Thanks for DubsTech, who provide the reliable <a href='https://github.com/zcolah/COVID_19_Datathon'>data set</a> for this project.</p>
-       ")
+  HTML("<p>Thanks for DubsTech, who provides the reliable <a href='https://github.com/zcolah/COVID_19_Datathon'>data set</a> for this project.</p>")
 )
 
 my_ui <- fluidPage(
