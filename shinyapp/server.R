@@ -28,6 +28,11 @@ mypalette <- colorNumeric( palette="viridis", domain=backup@data$patients,
                            na.color="transparent")
 mypalette(c(45,43))
 
+# Labels for choropleths
+labels <- sprintf("<strong>%s</strong><br/>count: %g",
+  backup@data$NAME_1, backup@data$patients) %>% 
+  lapply(htmltools::HTML)
+
 
 ####### Block for trace plot for districts #######
 districts_data = read.csv("data/districts_daily_may_15.csv")
@@ -74,7 +79,7 @@ my_server <- function(input, output) {
   output$state_map <- renderLeaflet({
     leaflet(data = backup) %>%
       setView(lng = 79, lat = 21, zoom = 4.4) %>% 
-      addPolygons(label = backup@data$NAME_1,
+      addPolygons(label = labels,
                   fillColor = ~mypalette(patients), stroke=FALSE,
                   color = "#444444",
                   weight = 1,
@@ -83,7 +88,10 @@ my_server <- function(input, output) {
                   fillOpacity = 0.5,
                   highlightOptions = highlightOptions(color = "white",
                                                       weight = 2,
-                                                      bringToFront = TRUE))
+                                                      bringToFront = TRUE)) %>% 
+      addLegend("bottomleft", pal = mypalette, values = backup@data$patients,
+                title = "Number of Patients",
+                opacity = 0.5)
   })
   
   output$tracedistricts <- renderPlotly({
