@@ -188,9 +188,9 @@ my_server <- function(input, output) {
     trace_graph <- trace_graph %>% add_trace(y = Chennai$active, name = "Chennai")
     trace_graph <- trace_graph %>% add_trace(y = ahm_active)
     trace_graph <- trace_graph %>% add_trace(y = agg_active, name = "Delhi")
-    trace_graph <- trace_graph %>% layout(title = "Active Cases vs Date", 
-                                          xaxis = list(title = "Date"),
-                                          yaxis = list(title = "Active Cases"),
+    trace_graph <- trace_graph %>% layout(title = list(title = "Active Cases vs Date", color = "floralwhite"), 
+                                          xaxis = list(title = "Date", color = "floralwhite", tickfont = list(color = "floralwhite"), showgrid = F),
+                                          yaxis = list(title = "Active Cases", color = "floralwhite", tickfont = list(color = "floralwhite")),
                                           legend = list(x = 0.05, y = 0.95, bgcolor = 'rgba(255,255,255,0.5)'),
                                           margin = list(r = 60)) %>% 
       layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
@@ -202,9 +202,9 @@ my_server <- function(input, output) {
     trace_graph_states <- trace_graph_states %>% add_trace(y = states_mtx_active$`Tamil Nadu`, name = "Tamil Nadu")
     trace_graph_states <- trace_graph_states %>% add_trace(y = states_mtx_active$Gujarat, name = "Gujarat")
     trace_graph_states <- trace_graph_states %>% add_trace(y = states_mtx_active$Delhi, name = "Delhi")
-    trace_graph_states <- trace_graph_states %>% layout(title = "Active Cases vs Date", 
-                                                        xaxis = list(title = "Date"),
-                                                        yaxis = list(title = "Active Cases"),
+    trace_graph_states <- trace_graph_states %>% layout(title = list(title = "Active Cases vs Date", color = "floralwhite"), 
+                                                        xaxis = list(title = "Date", color = "floralwhite", tickfont = list(color = "floralwhite"), showgrid = F),
+                                                        yaxis = list(title = "Active Cases", color = "floralwhite", tickfont = list(color = "floralwhite")),
                                                         legend = list(x = 0.05, y = 0.95, bgcolor = 'rgba(255,255,255,0.5)'),
                                                         margin = list(r = 60)) %>% 
       layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
@@ -215,9 +215,9 @@ my_server <- function(input, output) {
     agg_trace_plt = agg_trace_plt %>% add_trace(y = agg_country_active, name = "Total active cases")
     agg_trace_plt = agg_trace_plt %>% add_trace(y = agg_country_recovered, name = "Total recovered cases")
     agg_trace_plt = agg_trace_plt %>% add_trace(y = agg_country_deceased, name = "Total deceased cases")
-    agg_trace_plt = agg_trace_plt %>% layout(title = "Cases vs Date (2020-04-21 to 2020-05-16) in India", 
-                                             xaxis = list(title = "Date", showgrid = F),
-                                             yaxis = list(title = "Total"),
+    agg_trace_plt = agg_trace_plt %>% layout(title = list(title = "Cases vs Date (2020-04-21 to 2020-05-16) in India", color = "floralwhite"), 
+                                             xaxis = list(title = "Date", color = "floralwhite", tickfont = list(color = "floralwhite"), showgrid = F),
+                                             yaxis = list(title = "Total", color = "floralwhite", tickfont = list(color = "floralwhite")),
                                              legend = list(x = 0.05, y = 0.95, title=list(text='<b>Total Cases</b>'), bgcolor = 'rgba(255,255,255,0.5)')) %>% 
       layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
@@ -225,8 +225,8 @@ my_server <- function(input, output) {
   output$aggactiveplot <- renderPlotly({
     sub_agg_plt_increase = plot_ly(x = levels(date_list), y = agg_country_active, type = 'scatter', mode = 'lines+markers', name = "Total active cases")
     sub_agg_plt_increase = sub_agg_plt_increase %>% add_trace(y = agg_country_net_active, name = "Net active cases", yaxis = "y2")
-    sub_agg_plt_increase = sub_agg_plt_increase %>% layout(title = "Total/Net Active Cases vs Date", 
-                                                           xaxis = list(title = "Date", showgrid = F),
+    sub_agg_plt_increase = sub_agg_plt_increase %>% layout(title = list(title = "Total/Net Active Cases vs Date", color = "floralwhite"), 
+                                                           xaxis = list(title = "Date", color = "floralwhite", tickfont = list(color = "floralwhite"), showgrid = F),
                                                            yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                            yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"), overlaying = "y",side = "right",title = "Net"),
                                                            legend = list(x = 0.05, y = 0.9, title=list(text='<b>Growth Rate: 4.288883%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
@@ -237,8 +237,8 @@ my_server <- function(input, output) {
   output$aggrecoveredplot <- renderPlotly({
     sub_agg_plt_recovered = plot_ly(x = levels(date_list), y = agg_country_recovered, type = 'scatter', mode = 'lines+markers', name = "Total recovered cases")
     sub_agg_plt_recovered = sub_agg_plt_recovered %>% add_trace(y = agg_country_net_recovered, name = "Net recovered cases", yaxis = "y2")
-    sub_agg_plt_recovered = sub_agg_plt_recovered %>% layout(title = "Total/Net Recovered Cases vs Date", 
-                                                             xaxis = list(title = "Date", showgrid = F),
+    sub_agg_plt_recovered = sub_agg_plt_recovered %>% layout(title = list(title = "Total/Net Recovered Cases vs Date", color = "floralwhite"), 
+                                                             xaxis = list(title = "Date", color = "floralwhite", tickfont = list(color = "floralwhite"), showgrid = F),
                                                              yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                              yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
                                                              legend = list(x = 0.1, y = 0.9, title=list(text='<b>Growth Rate: 14.21489%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
@@ -249,12 +249,13 @@ my_server <- function(input, output) {
   output$aggdeceasedplot <- renderPlotly({
     sub_agg_plt_deceased = plot_ly(x = levels(date_list), y = agg_country_deceased, type = 'scatter', mode = 'lines+markers', name = "Total deceased cases")
     sub_agg_plt_deceased = sub_agg_plt_deceased %>% add_trace(y = agg_country_net_deceased, name = "Net deceased cases", yaxis = "y2")
-    sub_agg_plt_deceased = sub_agg_plt_deceased %>% layout(title = "Total/Net Deceased Cases vs Date", 
-                                                           xaxis = list(title = "Date", showgrid = F),
+    sub_agg_plt_deceased = sub_agg_plt_deceased %>% layout(title = list(title = "Total/Net Deceased Cases vs Date"), 
+                                                           xaxis = list(title = "Date", color = "floralwhite", tickfont = list(color = "floralwhite"), showgrid = F),
                                                            yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                            yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
                                                            legend = list(x = 0.15, y = 0.9, title=list(text='<b>Growth Rate: 16.8953%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
-                                                           margin = list(r = 60)) %>% 
+                                                           margin = list(r = 60),
+                                                           titlefont = list(color = "floralwhite")) %>% 
       layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
     
   })
