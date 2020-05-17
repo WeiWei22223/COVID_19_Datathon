@@ -154,12 +154,12 @@ my_server <- function(input, output) {
     plot_ly(active_state_4, x=active_state_4$state, y=active_state_4$patients, type='bar', 
             text = active_state_4$patients,
             textposition = 'auto',
-            marker = list(color = 'rgb((247,190,22))',
+            marker = list(color = '#f57b51',
                           line = list(color = 'rgb(248,252,253)', width = 1.5)),
             color = I("black")) %>%  
-      layout(title = "Total active case in four states of India", 
-               xaxis = list(title = "States in India"),
-               yaxis = list(title = "Number of patients")) %>% 
+      layout(title = list(title = "Total active case in four states of India", color = '#ffffff'),
+             xaxis = list(title = "States in India", color = '#ffffff'),
+             yaxis = list(title = "Number of patients", color = '#ffffff', gridcolor = '#f6eec9')) %>% 
       layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
   
