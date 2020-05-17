@@ -152,7 +152,7 @@ my_server <- function(input, output) {
     agg_trace_plt = agg_trace_plt %>% layout(title = "Cases vs Date (2020-04-21 to 2020-05-16) in India", 
                                              xaxis = list(title = "Cases", showgrid = F),
                                              yaxis = list(title = "Date"),
-                                             legend = list(x = 0.05, y = 0.95, title=list(text='<b>Total Cases</b>')))
+                                             legend = list(x = 0.05, y = 0.95, title=list(text='<b>Total Cases</b>'), bgcolor = 'rgba(255,255,255,0.5)'))
   })
   
   output$aggactiveplot <- renderPlotly({
@@ -162,7 +162,7 @@ my_server <- function(input, output) {
                                                            xaxis = list(title = "Date", showgrid = F),
                                                            yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                            yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"), overlaying = "y",side = "right",title = "Net"),
-                                                           legend = list(x = 0.05, y = 0.9, title=list(text='<b>Growth Rate: 4.288883%</b>')),
+                                                           legend = list(x = 0.05, y = 0.9, title=list(text='<b>Growth Rate: 4.288883%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
                                                            margin = list(r = 60))
   })
   
@@ -173,7 +173,7 @@ my_server <- function(input, output) {
                                                              xaxis = list(title = "Date", showgrid = F),
                                                              yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                              yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
-                                                             legend = list(x = 0.1, y = 0.9, title=list(text='<b>Growth Rate: 14.21489%</b>')),
+                                                             legend = list(x = 0.1, y = 0.9, title=list(text='<b>Growth Rate: 14.21489%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
                                                              margin = list(r = 60))
   })
   
@@ -184,7 +184,7 @@ my_server <- function(input, output) {
                                                            xaxis = list(title = "Date", showgrid = F),
                                                            yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                            yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
-                                                           legend = list(x = 0.15, y = 0.9, title=list(text='<b>Growth Rate: 16.8953%</b>')),
+                                                           legend = list(x = 0.15, y = 0.9, title=list(text='<b>Growth Rate: 16.8953%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
                                                            margin = list(r = 60))
   })
   
