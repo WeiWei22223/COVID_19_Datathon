@@ -5,10 +5,13 @@ library(plotly)
 #main_page <- tabPanel()
 
 bar_plot_states <- tabPanel(
-  "Bar Plot for States",
-  h1("Overall count of diagnosed patients of COVID-19 in 4 states' of India", align = "center"),
+  "States Data",
+  h1("Overall count of diagnosed patients in India", align = "center"),
   p("The plot below shows the number of diagnosed patients by states and gender."),
-  plotlyOutput("barplot")
+  fluidRow(
+    splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("barplot"), 
+                leafletOutput("state_map"))
+  )
 )
 
 trace_plot_districts <- tabPanel(
