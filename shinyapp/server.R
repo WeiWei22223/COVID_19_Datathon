@@ -4,11 +4,10 @@ library(dplyr)
 library(plotly)
 library(leaflet)
 library(geojsonsf)
-library(jsonlite)
 
-# Patient's data from all the state of India
-all_data <- read.csv("data/aggregated_state_data.csv", stringsAsFactors = FALSE)
-all_data <- all_data[order(all_data$state), ]
+# # Patient's data from all the state of India
+# all_data <- read.csv("data/aggregated_state_data.csv", stringsAsFactors = FALSE)
+# all_data <- all_data[order(all_data$state), ]
 
 ############# Block for trace plot for districts #######
 districts_data = read.csv("data/districts_daily_may_15.csv")
