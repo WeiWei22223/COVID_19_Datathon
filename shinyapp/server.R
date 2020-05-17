@@ -19,8 +19,11 @@ backup <- rgdal::readOGR("data/india_states.geojson")
 # Combine map data with patient's data
 backup@data$patients <- 0
 for (i in 1:nrow(all_data)) {
-  state_name <- all_data$state[i]
-  backup@data$patients[i] <- all_data$patients[i]
+  for (j in 1:nrow(backup@data)) {
+    if (all_data$state[i] == backup@data$NAME_1[j]) {
+      backup@data$patients[j] <- all_data$patients[i]
+    }
+  }
 }
 
 # Create a color palette for the map:
@@ -115,7 +118,8 @@ my_server <- function(input, output) {
     leaflet(data = backup) %>%
       setView(lng = 79, lat = 21, zoom = 4.4) %>% 
       addPolygons(label = labels,
-                  fillColor = ~mypalette(patients), stroke=FALSE,
+                  fillColor = ~mypalette(patients), 
+                  stroke=TRUE,
                   color = "#444444",
                   weight = 1,
                   smoothFactor = 0.5,
@@ -126,7 +130,7 @@ my_server <- function(input, output) {
                                                       bringToFront = TRUE)) %>% 
       addLegend("bottomleft", pal = mypalette, values = backup@data$patients,
                 title = "Number of Patients",
-                opacity = 0.5)
+                opacity = 0.5) 
   })
   
   output$tracedistricts <- renderPlotly({
