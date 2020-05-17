@@ -11,7 +11,8 @@ bar_plot_states <- tabPanel(
   fluidRow(
     splitLayout(cellWidths = c("50%", "50%"), plotlyOutput("barplot"),
                 leafletOutput("state_map"))
-  )
+  ),
+  plotlyOutput("district_bar")
 )
 
 trace_plot_districts <- tabPanel(

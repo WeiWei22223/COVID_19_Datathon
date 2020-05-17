@@ -122,6 +122,7 @@ names(total_active_district)[2] <- "patients"
 
 # Filter district that <100 cases
 filtered_district <- total_active_district[total_active_district$patients < 100, ]
+filtered_district <- filtered_district[filtered_district$patients > 0, ]
 
 # select total active cases at state level
 total_active_state <- states_mtx_active[nrow(states_mtx_active), ]
@@ -176,11 +177,11 @@ my_server <- function(input, output) {
   
   # Output a bar chart for district information
   output$district_bar <- renderPlotly({
-    plot_ly(total_active_district, 
-            x=total_active_district$district, 
-            y=total_active_district$patients, 
+    plot_ly(filtered_district, 
+            x=filtered_district$district, 
+            y=filtered_district$patients, 
             type='bar', 
-            text = total_active_district$patients,
+            text = filtered_district$patients,
             textposition = 'auto',
             marker = list(color = '#f57b51',
                           line = list(color = 'rgb(248,252,253)', width = 1.5)),
