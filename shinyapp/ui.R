@@ -53,7 +53,7 @@ home_page <- tabPanel(
   "HOME",
   h1("COVID-19 IN INDIA", align = "center"),
   h4("Wei Fan, Qiaoxue Liu", align = "center"),
-  h5("(Please allow a few minutes for the plots and maps to fully load!)", align = "center"),
+  h5("(Please allow a few minutes(5~6 min) for the plots and maps to fully load!)", align = "center"),
   h2("Background"),
   p("In December, 2019, “coronavirus disease 2019” (abbreviated “COVID-19”) are detected from people working at Wuhan South China Seafood Wholesale Market. 
     Later, a growing number of patients reported they were not exposed to animal markets, indicating person-to-person spread. 
