@@ -137,8 +137,8 @@ for (i in 1:nrow(total_active_state)) {
 }
 
 # Create a color palette for the map:
-mypalette <- colorNumeric( palette="viridis", domain=backup@data$patients, 
-                           na.color="transparent")
+mypalette <- colorNumeric(palette="magma", domain=backup@data$patients, 
+                          na.color="transparent")
 mypalette(c(45,43))
 
 # Labels for choropleths
@@ -166,20 +166,21 @@ my_server <- function(input, output) {
   output$state_map <- renderLeaflet({
     leaflet(data = backup) %>%
       setView(lng = 79, lat = 21, zoom = 4.4) %>% 
+      # addProviderTiles("CartoDB.DarkMatter") %>% 
       addPolygons(label = labels,
-                  fillColor = ~mypalette(patients), 
+                  fillColor = ~mypalette(patients),
                   stroke=TRUE,
                   color = "#444444",
                   weight = 1,
                   smoothFactor = 0.5,
                   opacity = 1.0,
-                  fillOpacity = 0.5,
+                  fillOpacity = 1.0,
                   highlightOptions = highlightOptions(color = "white",
                                                       weight = 2,
-                                                      bringToFront = TRUE)) %>% 
+                                                      bringToFront = TRUE)) %>%
       addLegend("bottomleft", pal = mypalette, values = backup@data$patients,
                 title = "Number of Patients",
-                opacity = 0.5) 
+                opacity = 1.0)
   })
   
   output$tracedistricts <- renderPlotly({
@@ -191,7 +192,8 @@ my_server <- function(input, output) {
                                           xaxis = list(title = "Date"),
                                           yaxis = list(title = "Active Cases"),
                                           legend = list(x = 0.05, y = 0.95, bgcolor = 'rgba(255,255,255,0.5)'),
-                                          margin = list(r = 60))
+                                          margin = list(r = 60)) %>% 
+      layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
     
   })
   
@@ -204,7 +206,8 @@ my_server <- function(input, output) {
                                                         xaxis = list(title = "Date"),
                                                         yaxis = list(title = "Active Cases"),
                                                         legend = list(x = 0.05, y = 0.95, bgcolor = 'rgba(255,255,255,0.5)'),
-                                                        margin = list(r = 60))
+                                                        margin = list(r = 60)) %>% 
+      layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
   
   output$aggtraceplot <- renderPlotly({
@@ -215,7 +218,8 @@ my_server <- function(input, output) {
     agg_trace_plt = agg_trace_plt %>% layout(title = "Cases vs Date (2020-04-21 to 2020-05-16) in India", 
                                              xaxis = list(title = "Date", showgrid = F),
                                              yaxis = list(title = "Total"),
-                                             legend = list(x = 0.05, y = 0.95, title=list(text='<b>Total Cases</b>'), bgcolor = 'rgba(255,255,255,0.5)'))
+                                             legend = list(x = 0.05, y = 0.95, title=list(text='<b>Total Cases</b>'), bgcolor = 'rgba(255,255,255,0.5)')) %>% 
+      layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
   
   output$aggactiveplot <- renderPlotly({
@@ -226,7 +230,8 @@ my_server <- function(input, output) {
                                                            yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                            yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"), overlaying = "y",side = "right",title = "Net"),
                                                            legend = list(x = 0.05, y = 0.9, title=list(text='<b>Growth Rate: 4.288883%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
-                                                           margin = list(r = 60))
+                                                           margin = list(r = 60)) %>% 
+      layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
   
   output$aggrecoveredplot <- renderPlotly({
@@ -237,7 +242,8 @@ my_server <- function(input, output) {
                                                              yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                              yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
                                                              legend = list(x = 0.1, y = 0.9, title=list(text='<b>Growth Rate: 14.21489%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
-                                                             margin = list(r = 60))
+                                                             margin = list(r = 60)) %>% 
+      layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
   })
   
   output$aggdeceasedplot <- renderPlotly({
@@ -248,7 +254,9 @@ my_server <- function(input, output) {
                                                            yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
                                                            yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
                                                            legend = list(x = 0.15, y = 0.9, title=list(text='<b>Growth Rate: 16.8953%</b>'), bgcolor = 'rgba(255,255,255,0.5)'),
-                                                           margin = list(r = 60))
+                                                           margin = list(r = 60)) %>% 
+      layout(plot_bgcolor  = "rgba(0, 0, 0, 0)",paper_bgcolor = "rgba(0, 0, 0, 0)")
+    
   })
   
 }
