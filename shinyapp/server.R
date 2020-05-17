@@ -10,33 +10,6 @@ library(jsonlite)
 all_data <- read.csv("data/aggregated_state_data.csv", stringsAsFactors = FALSE)
 all_data <- all_data[order(all_data$state), ]
 
-# Patient's data from 4 specific states
-data <- all_data %>% filter(state == "Maharashtra" | state == "Delhi" | state == "Tamil Nadu" | state == "Gujarat")
-
-# Read in the Inidan state map file 
-backup <- rgdal::readOGR("data/india_states.geojson")
-
-# Combine map data with patient's data
-backup@data$patients <- 0
-for (i in 1:nrow(all_data)) {
-  for (j in 1:nrow(backup@data)) {
-    if (all_data$state[i] == backup@data$NAME_1[j]) {
-      backup@data$patients[j] <- all_data$patients[i]
-    }
-  }
-}
-
-# Create a color palette for the map:
-mypalette <- colorNumeric( palette="viridis", domain=backup@data$patients, 
-                           na.color="transparent")
-mypalette(c(45,43))
-
-# Labels for choropleths
-labels <- sprintf("<strong>%s</strong><br/>count: %g",
-  backup@data$NAME_1, backup@data$patients) %>% 
-  lapply(htmltools::HTML)
-
-
 ############# Block for trace plot for districts #######
 districts_data = read.csv("data/districts_daily_may_15.csv")
 Mumbai <- districts_data %>% filter(district == "Mumbai")
@@ -139,6 +112,41 @@ district_mtx_active = agg_area(districts_data$district, 2, 1)
 district_mtx_recovered = agg_area(districts_data$district, 3, 1)
 district_mtx_deceased = agg_area(districts_data$district, 4, 1)
 ##################
+
+# select total active cases at state level
+total_active_state <- states_mtx_active[nrow(states_mtx_active), ]
+total_active_state <- t(total_active_state)
+total_active_state <- data.frame(total_active_state)
+total_active_state <- tibble::rownames_to_column(total_active_state, "state")
+names(total_active_state)[1] <- "state"
+names(total_active_state)[2] <- "patients"
+
+# Patient's data from 4 specific states
+active_state_4 <- total_active_state %>% filter(state == "Maharashtra" | state == "Delhi" | state == "Tamil Nadu" | state == "Gujarat")
+
+# Read in the Inidan state map file 
+backup <- rgdal::readOGR("data/india_states.geojson")
+
+# Combine map data with patient's data
+backup@data$patients <- 0
+for (i in 1:nrow(total_active_state)) {
+  for (j in 1:nrow(backup@data)) {
+    if (total_active_state$state[i] == backup@data$NAME_1[j]) {
+      backup@data$patients[j] <- total_active_state$patients[i]
+    }
+  }
+}
+
+# Create a color palette for the map:
+mypalette <- colorNumeric( palette="viridis", domain=backup@data$patients, 
+                           na.color="transparent")
+mypalette(c(45,43))
+
+# Labels for choropleths
+labels <- sprintf("<strong>%s</strong><br/>count: %g",
+                  backup@data$NAME_1, backup@data$patients) %>% 
+  lapply(htmltools::HTML)
+
 
 my_server <- function(input, output) {
   
