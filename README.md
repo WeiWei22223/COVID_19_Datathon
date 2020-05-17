@@ -1,9 +1,10 @@
 # COVID_19_Datathon
-# AUTHORS: Wei Fan, Qiaoxue Liu
+#### AUTHORS: boundless girls
+#### TEAM NAME: corvid19
 
 [Link to our project](https://weifan.shinyapps.io/COVID-19/)
 
-# Please allow a few minutes(5~6 min) for the plots and maps to fully load!
+#### Please allow a few minutes(5~6 min) for the plots and maps to fully load!
 
 ## Answers to the concerning questions
 #### By which date will the states(Maharashtra, Delhi, Tamil Nadu, Gujarat) and districts(Mumbai, Delhi, Ahmedabad, Chennai) have less than 100 COVID-19 cases? 
