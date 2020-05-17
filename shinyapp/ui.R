@@ -19,6 +19,18 @@ trace_plot_districts <- tabPanel(
   plotlyOutput("tracedistricts")
 )
 
+growth_rate_country <- tabPanel(
+  "Growth Rate across Country",
+  h1("Total growth across country", align = "center"),
+  plotlyOutput("aggtraceplot", width = "100%"),
+  h1("Total vs Net growth across country", align = "center"),
+  splitLayout(cellWidths = c("33%", "33%", "33%"),
+              plotlyOutput("aggactiveplot"),
+              plotlyOutput("aggrecoveredplot"),
+              plotlyOutput("aggdeceasedplot")
+  )
+)
+
 my_ui <- fluidPage(
   theme = shinythemes::shinytheme("readable"),
   HTML('<center><h1>COVID-19 IN INDIA</h1></center>'),
@@ -27,7 +39,8 @@ my_ui <- fluidPage(
   navbarPage(
     "COVID-19 IN INDIA", 
     bar_plot_states,
-    trace_plot_districts
+    trace_plot_districts,
+    growth_rate_country
     #diversity_map              
   )
 )
