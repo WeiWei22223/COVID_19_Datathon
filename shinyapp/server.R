@@ -5,7 +5,7 @@ library(plotly)
 data <- read.csv("data/aggregated_state_data.csv", stringsAsFactors = FALSE)
 data <- data %>% filter(state == "Maharashtra" | state == "Delhi" | state == "Tamil Nadu" | state == "Gujarat")
 
-####### Block for trace plot for districts #######
+############# Block for trace plot for districts #######
 districts_data = read.csv("data/districts_daily_may_15.csv")
 Mumbai <- districts_data %>% filter(district == "Mumbai")
 Chennai <- districts_data %>% filter(district == "Chennai")
@@ -30,6 +30,41 @@ for (k in 1:num_date_list) {
   }
 }
 ##############
+############## growth rate across country ############
+agg_country_active <- numeric(num_date_list)
+agg_country_confirmed <- numeric(num_date_list)
+agg_country_recovered <- numeric(num_date_list)
+agg_country_deceased <- numeric(num_date_list)
+agg_country_net_active <- numeric(num_date_list)
+agg_country_net_recovered <- numeric(num_date_list)
+agg_country_net_deceased <- numeric(num_date_list)
+for (k in 1:num_date_list) {
+  cur_day = districts_data %>% filter(date == date_list[k])
+  agg_country_confirmed[k] = sum(cur_day$confirmed)
+  agg_country_active[k] = sum(cur_day$active)
+  agg_country_recovered[k] = sum(cur_day$recovered)
+  agg_country_deceased[k] = sum(cur_day$deceased)
+  if (k == 1) {
+    agg_country_net_active[k] = NA
+  } else {
+    agg_country_net_active[k] = agg_country_active[k] - agg_country_active[k-1]
+  }
+  if (k == 1) {
+    agg_country_net_recovered[k] = NA
+  } else {
+    agg_country_net_recovered[k] = agg_country_recovered[k] - agg_country_recovered[k-1]
+  }
+  if (k == 1) {
+    agg_country_net_deceased[k] = NA
+  } else {
+    agg_country_net_deceased[k] = agg_country_deceased[k] - agg_country_deceased[k-1]
+  }
+}
+
+avg_active_net = mean(agg_country_net_active[2:26]/agg_country_active[1:25])
+avg_recovered_net = mean(agg_country_net_recovered[2:26]/agg_country_recovered[1:25])
+avg_deceased_net = mean(agg_country_net_deceased[2:26]/agg_country_deceased[1:25])
+##################
 
 my_server <- function(input, output) {
   
@@ -58,6 +93,48 @@ my_server <- function(input, output) {
     
   })
   
+  output$aggtraceplot <- renderPlotly({
+    agg_trace_plt = plot_ly(x = levels(date_list), y = agg_country_confirmed, type = 'scatter', mode = 'lines+markers', name = "Total confirmed cases", hoverinfo = 'text')
+    agg_trace_plt = agg_trace_plt %>% add_trace(y = agg_country_active, name = "Total active cases")
+    agg_trace_plt = agg_trace_plt %>% add_trace(y = agg_country_recovered, name = "Total recovered cases")
+    agg_trace_plt = agg_trace_plt %>% add_trace(y = agg_country_deceased, name = "Total deceased cases")
+    agg_trace_plt = agg_trace_plt %>% layout(title = "Cases vs Date (2020-04-21 to 2020-05-16) in India", 
+                                             xaxis = list(title = "Cases", showgrid = F),
+                                             yaxis = list(title = "Date"),
+                                             legend = list(x = 0.05, y = 0.95, title=list(text='<b>Total Cases</b>')))
+  })
   
+  output$aggactiveplot <- renderPlotly({
+    sub_agg_plt_increase = plot_ly(x = levels(date_list), y = agg_country_active, type = 'scatter', mode = 'lines+markers', name = "Total active cases")
+    sub_agg_plt_increase = sub_agg_plt_increase %>% add_trace(y = agg_country_net_active, name = "Net active cases", yaxis = "y2")
+    sub_agg_plt_increase = sub_agg_plt_increase %>% layout(title = "Total/Net Active Cases vs Date", 
+                                                           xaxis = list(title = "Date", showgrid = F),
+                                                           yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
+                                                           yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"), overlaying = "y",side = "right",title = "Net"),
+                                                           legend = list(x = 0.05, y = 0.9, title=list(text='<b>Growth Rate: 4.288883%</b>')),
+                                                           margin = list(r = 60))
+  })
+  
+  output$aggrecoveredplot <- renderPlotly({
+    sub_agg_plt_recovered = plot_ly(x = levels(date_list), y = agg_country_recovered, type = 'scatter', mode = 'lines+markers', name = "Total recovered cases")
+    sub_agg_plt_recovered = sub_agg_plt_recovered %>% add_trace(y = agg_country_net_recovered, name = "Net recovered cases", yaxis = "y2")
+    sub_agg_plt_recovered = sub_agg_plt_recovered %>% layout(title = "Total/Net Recovered Cases vs Date", 
+                                                             xaxis = list(title = "Date", showgrid = F),
+                                                             yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
+                                                             yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
+                                                             legend = list(x = 0.1, y = 0.9, title=list(text='<b>Growth Rate: 14.21489%</b>')),
+                                                             margin = list(r = 60))
+  })
+  
+  output$aggdeceasedplot <- renderPlotly({
+    sub_agg_plt_deceased = plot_ly(x = levels(date_list), y = agg_country_deceased, type = 'scatter', mode = 'lines+markers', name = "Total deceased cases")
+    sub_agg_plt_deceased = sub_agg_plt_deceased %>% add_trace(y = agg_country_net_deceased, name = "Net deceased cases", yaxis = "y2")
+    sub_agg_plt_deceased = sub_agg_plt_deceased %>% layout(title = "Total/Net Deceased Cases vs Date", 
+                                                           xaxis = list(title = "Date", showgrid = F),
+                                                           yaxis = list(color = "steelblue", tickfont = list(color = "steelblue"),title = "Total"),
+                                                           yaxis2 = list(color = "darkorange", tickfont = list(color = "darkorange"),overlaying = "y",side = "right",title = "Net"),
+                                                           legend = list(x = 0.15, y = 0.9, title=list(text='<b>Growth Rate: 16.8953%</b>')),
+                                                           margin = list(r = 60))
+  })
   
 }
