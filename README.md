@@ -1,4 +1,8 @@
 # COVID_19_Datathon
+# AUTHORS: Wei Fan, Qiaoxue Liu
+
+[Link to our project](https://weifan.shinyapps.io/COVID-19/)
+
 # Please allow a few minutes(5~6 min) for the plots and maps to fully load!
 
 ## Answers to the concerning questions
